@@ -1,25 +1,51 @@
 <head>
-  <title>meteorFirst</title>
+    <title>meteorFirst</title>
 </head>
 
 <body>
-  <h1>Welcome to Meteor!</h1>
+<h1>Welcome to Meteor!</h1>
 
-  {{> hello}}
-  {{> info}}
+
+<!-- > означає що використовується темплейт-->
+{{> hello}}  <br><br><br>
+{{> loginButtons}} <br><br><br>
+
+<!-- else if в метеорі -->
+{{#if currentUser}}
+    <ul>
+        <!-- for each який перебирає notes з js файлу -->
+        {{#each notes}}
+            <!--відображеємо цілий темплейт-->
+            {{> note}}
+        {{/each}}
+    </ul>
+    {{> addNote}}
+{{else}}
+    Please Log In
+    <!--Обовязково закривато потрібно -->
+{{/if}}
+
 </body>
 
 <template name="hello">
-  <button>Click Me</button>
-  <p>You've pressed the button {{counter}} times.</p>
+    <button>Click Me</button>
+    <p>You've pressed the button {{counter}} times.</p>
 </template>
 
-<template name="info">
-  <h2>Learn Meteor!</h2>
-  <ul>
-    <li><a href="https://www.meteor.com/try" target="_blank">Do the Tutorial</a></li>
-    <li><a href="http://guide.meteor.com" target="_blank">Follow the Guide</a></li>
-    <li><a href="https://docs.meteor.com" target="_blank">Read the Docs</a></li>
-    <li><a href="https://forums.meteor.com" target="_blank">Discussions</a></li>
-  </ul>
+<template name="note">
+    <li>
+        <!--
+             приймає text з addNote.events в js файлі
+             опше хз як воно його бачить якщо я в note відкриваю з методу addNote.
+             Магія )
+        -->
+        <b> {{text}} </b> <i> added by {{username}} </i>
+        <button> delete</button>
+    </li>
 </template>
+
+<template name="addNote">
+    <input type="text" name="textfield" id="textfield"/>
+    <button>add task</button>
+</template>
+
